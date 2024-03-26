@@ -1,7 +1,4 @@
-﻿using Mediporta.Operations;
-using Mediporta.Operations.Interfaces;
-
-namespace Mediporta
+﻿namespace Mediporta
 {
     public static class ServicesRegistration
     {

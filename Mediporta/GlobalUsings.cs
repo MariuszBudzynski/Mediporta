@@ -13,3 +13,4 @@ global using Mediporta.Data.Repository.Interfaces;
 global using Newtonsoft.Json.Linq;
 global using System.IO.Compression;
 global using Mediporta.Operations.Interfaces;
+global using Mediporta.Operations;

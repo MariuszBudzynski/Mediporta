@@ -1,10 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-ServicesRegistration.RegisterServices(builder.Services, configuration);
+ServicesRegistration.RegisterServices(builder.Services, builder.Configuration);
 
 
 var app = builder.Build();
