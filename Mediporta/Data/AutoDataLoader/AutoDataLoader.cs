@@ -2,12 +2,14 @@
 {
     private readonly IFirstLoadDataSaveUseCase<T> _saveDataAfterLoad;
     private readonly IForceLoadDataUseCase<T> _forceLoadDataUseCase;
+    private readonly IConfiguration _configuration;
     private readonly HttpClient _client = new HttpClient();
 
-    public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad, IForceLoadDataUseCase<T> forceLoadDataUseCase)
+    public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad, IForceLoadDataUseCase<T> forceLoadDataUseCase,IConfiguration configuration)
     {
         _saveDataAfterLoad = saveDataAfterLoad;
         _forceLoadDataUseCase = forceLoadDataUseCase;
+        _configuration = configuration;
     }
 
     public async Task LoadDataJSON(bool useSaveDataAfterLoad = true)
@@ -21,7 +23,8 @@
         {
             while (totalFetchedTags < totalTagsToFetch)
             {
-                var url = $"https://api.stackexchange.com//2.3/tags?page={page}&pagesize={pageSize}&order=desc&sort=name&site=stackoverflow";
+                var apiUrl = _configuration["EndpointSetup:ApiUrl"];
+                var url = $"{apiUrl}?page={page}&pagesize={pageSize}&order=desc&sort=name&site=stackoverflow";
                 HttpResponseMessage response = await _client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
