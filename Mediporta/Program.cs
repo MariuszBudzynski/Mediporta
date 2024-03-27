@@ -10,14 +10,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mediporta API v1");
+    });
 }
 
 app.UseHttpsRedirection();
 
 Routes.ConfigureRoutes(app);
 
-var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
-await loadData.LoadDataJSON();
+//var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
+//await loadData.LoadDataJSON();
 
 app.Run();

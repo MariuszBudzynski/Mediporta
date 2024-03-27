@@ -11,7 +11,15 @@
 
         public async Task<IEnumerable<T>> ExecuteAsync()
         {
-            return await _repository.GetAllDataAsync();
+            try
+            {
+                return await _repository.GetAllDataAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting all data: {ex.Message}");
+                throw;
+            }
         }
     }
 }

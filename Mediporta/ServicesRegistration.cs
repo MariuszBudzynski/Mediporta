@@ -1,4 +1,6 @@
-﻿namespace Mediporta
+﻿using Microsoft.OpenApi.Models;
+
+namespace Mediporta
 {
     public static class ServicesRegistration
     {
@@ -17,6 +19,11 @@
             services.AddDbContext<TagDbContext<Tag>>(options =>
             {
                 options.UseSqlite(configuration.GetConnectionString("TagDbContextConnection"));
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mediporta API", Version = "v1" });
             });
 
             services.AddScoped<AutoDataLoader<Tag>>();

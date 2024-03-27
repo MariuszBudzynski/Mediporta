@@ -11,12 +11,17 @@
 
         public async Task ExecuteAsync(IEnumerable<T> data)
         {
-            var existingTagNames = (await _repository.GetAllDataAsync()).Select(tag => tag.Name).ToList();
-
-            var newTags = data.Where(tag => !existingTagNames.Contains(tag.Name)).ToList();
-
-            await _repository.SaveDataAsync(newTags);
+            try
+            {
+                var existingTagNames = (await _repository.GetAllDataAsync()).Select(tag => tag.Name).ToList();
+                var newTags = data.Where(tag => !existingTagNames.Contains(tag.Name)).ToList();
+                await _repository.SaveDataAsync(newTags);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while executing FirstLoadDataSaveUseCase: {ex.Message}");
+                throw;
+            }
         }
-
     }
 }

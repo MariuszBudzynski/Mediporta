@@ -1,6 +1,4 @@
-﻿using Mediporta.Data.AutoDataLoader;
-
-namespace Mediporta
+﻿namespace Mediporta
 {
     public class Routes
     {

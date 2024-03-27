@@ -11,31 +11,40 @@
 
         public async Task ExecuteAsync(IEnumerable<T> data)
         {
-            List<T> tagsToUpdate = new();
-            List<T> tagsToAdd = new();
-
-
-            var dataToCheck = await _repository.GetAllDataAsync();
-
-            foreach (var tag in data)
+            try
             {
-                if (dataToCheck.FirstOrDefault(x => x.Name == tag.Name) != null)
+                List<T> tagsToUpdate = new();
+                List<T> tagsToAdd = new();
+
+                var dataToCheck = await _repository.GetAllDataAsync();
+
+                foreach (var tag in data)
                 {
-                    tagsToAdd.Add(tag);
+                    if (dataToCheck.FirstOrDefault(x => x.Name == tag.Name) != null)
+                    {
+                        tagsToAdd.Add(tag);
+                    }
+                    else
+                    {
+                        tagsToUpdate.Add(tag);
+                    }
                 }
-                else tagsToUpdate.Add(tag);
-            }
 
-            if (tagsToAdd.Any())
+                if (tagsToAdd.Any())
+                {
+                    await _repository.SaveDataAsync(tagsToAdd);
+                }
+
+                if (tagsToUpdate.Any())
+                {
+                    await _repository.UpdateDataAsync(tagsToUpdate);
+                }
+            }
+            catch (Exception ex)
             {
-                await _repository.SaveDataAsync(tagsToAdd);
+                Console.WriteLine($"An error occurred while executing ForceLoadDataUseCase: {ex.Message}");
+                throw;
             }
-
-            if (tagsToUpdate.Any())
-            {
-                await _repository.UpdateDataAsync(tagsToUpdate);
-            }
-
         }
     }
 }

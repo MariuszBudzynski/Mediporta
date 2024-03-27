@@ -1,6 +1,4 @@
-﻿using Mediporta.Data.AutoDataLoader;
-
-namespace Mediporta.Services
+﻿namespace Mediporta.Services
 {
     public class ResponseHandlerService
     {

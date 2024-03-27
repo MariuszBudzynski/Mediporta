@@ -1,25 +1,24 @@
-﻿namespace Mediporta.Data.AutoDataLoader
+﻿public class AutoDataLoader<T> where T : IEntity
 {
-    public class AutoDataLoader<T> where T : IEntity
+    private readonly IFirstLoadDataSaveUseCase<T> _saveDataAfterLoad;
+    private readonly IForceLoadDataUseCase<T> _forceLoadDataUseCase;
+    private readonly HttpClient _client = new HttpClient();
+
+    public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad, IForceLoadDataUseCase<T> forceLoadDataUseCase)
     {
-        private readonly IFirstLoadDataSaveUseCase<T> _saveDataAfterLoad;
-        private readonly IForceLoadDataUseCase<T> _forceLoadDataUseCase;
-        private readonly HttpClient _client = new HttpClient();
-        private string loadType = "first"; 
+        _saveDataAfterLoad = saveDataAfterLoad;
+        _forceLoadDataUseCase = forceLoadDataUseCase;
+    }
 
-        public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad,IForceLoadDataUseCase<T> forceLoadDataUseCase)
+    public async Task LoadDataJSON(bool useSaveDataAfterLoad = true)
+    {
+        int pageSize = 100;
+        int page = 1;
+        int totalTagsToFetch = 1000;
+        int totalFetchedTags = 0;
+
+        try
         {
-            _saveDataAfterLoad = saveDataAfterLoad;
-            _forceLoadDataUseCase = forceLoadDataUseCase;
-        }
-
-        public async Task LoadDataJSON()
-        {
-            int pageSize = 100;
-            int page = 1;
-            int totalTagsToFetch = 1000;
-            int totalFetchedTags = 0;
-
             while (totalFetchedTags < totalTagsToFetch)
             {
                 var url = $"https://api.stackexchange.com//2.3/tags?page={page}&pagesize={pageSize}&order=desc&sort=name&site=stackoverflow";
@@ -28,15 +27,22 @@
 
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
-                    await ProcessResponseStream(stream);
+                    await ProcessResponseStream(stream, useSaveDataAfterLoad);
                 }
 
                 totalFetchedTags += pageSize;
                 page++;
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while loading data: {ex.Message}");
+        }
+    }
 
-        private async Task ProcessResponseStream(Stream stream)
+    private async Task ProcessResponseStream(Stream stream, bool useSaveDataAfterLoad)
+    {
+        try
         {
             using (var decompressedStream = new GZipStream(stream, CompressionMode.Decompress))
             using (var streamReader = new StreamReader(decompressedStream))
@@ -50,16 +56,20 @@
 
                 IEnumerable<T> data = itemsArray.ToObject<IEnumerable<T>>();
 
-                await (loadType == "first" ? _saveDataAfterLoad.ExecuteAsync(data) : _forceLoadDataUseCase.ExecuteAsync(data));
-
+                if (useSaveDataAfterLoad)
+                    await _saveDataAfterLoad.ExecuteAsync(data);
+                else
+                    await _forceLoadDataUseCase.ExecuteAsync(data);
             }
         }
-
-        public async Task ReloadData()
+        catch (Exception ex)
         {
-            loadType = "reload";
-            await LoadDataJSON();
+            Console.WriteLine($"An error occurred while processing response stream: {ex.Message}");
         }
     }
-}
 
+    public async Task ReloadData(bool useSaveDataAfterLoad = true)
+    {
+        await LoadDataJSON(useSaveDataAfterLoad);
+    }
+}
