@@ -7,6 +7,10 @@ namespace Mediporta
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
 
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)

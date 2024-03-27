@@ -1,15 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
 
-ServicesRegistration.RegisterServices(builder.Services, builder.Configuration);
-
-
-var app = builder.Build();
+builder.Host.UseSerilog();
 
 string logsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "logs");
+
 if (!Directory.Exists(logsDirectory))
 {
     Directory.CreateDirectory(logsDirectory);
 }
+
+
+ServicesRegistration.RegisterServices(builder.Services, builder.Configuration);
+var app = builder.Build();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
@@ -28,10 +30,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 
 Routes.ConfigureRoutes(app);
 
-//var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
-//await loadData.LoadDataJSON();
+var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
+await loadData.LoadDataJSON();
 
 app.Run();
