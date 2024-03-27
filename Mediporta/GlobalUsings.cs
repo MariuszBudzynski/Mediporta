@@ -18,3 +18,4 @@ global using Mediporta.DTOS.Interfaces;
 global using Mediporta.DTOS;
 global using Mediporta.Extensions;
 global using Serilog;
+global using Serilog.Events;

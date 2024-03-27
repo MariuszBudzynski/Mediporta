@@ -6,6 +6,7 @@ namespace Mediporta
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
