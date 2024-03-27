@@ -42,7 +42,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while executing ForceLoadDataUseCase: {ex.Message}");
+                Log.Error($"An error occurred while executing ForceLoadDataUseCase: {ex.Message}");
                 throw;
             }
         }

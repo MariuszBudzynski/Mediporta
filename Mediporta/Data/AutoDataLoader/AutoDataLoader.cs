@@ -36,7 +36,7 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred while loading data: {ex.Message}");
+            Log.Error($"An error occurred while loading data: {ex.Message}");
         }
     }
 
@@ -64,7 +64,7 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred while processing response stream: {ex.Message}");
+            Log.Error($"An error occurred while processing response stream: {ex.Message}");
         }
     }
 

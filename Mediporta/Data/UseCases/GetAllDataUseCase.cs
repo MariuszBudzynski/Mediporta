@@ -17,7 +17,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while getting all data: {ex.Message}");
+                Log.Error($"An error occurred while getting all data: {ex.Message}");
                 throw;
             }
         }

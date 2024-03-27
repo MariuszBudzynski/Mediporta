@@ -19,7 +19,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while executing FirstLoadDataSaveUseCase: {ex.Message}");
+                Log.Error(ex, "An error occurred while executing FirstLoadDataSaveUseCase");
                 throw;
             }
         }
