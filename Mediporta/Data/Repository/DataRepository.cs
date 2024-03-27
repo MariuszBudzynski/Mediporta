@@ -1,4 +1,4 @@
-﻿namespace Mediporta.Data.Repository.Interfaces
+﻿namespace Mediporta.Data.Repository
 {
     public class DataRepository<T> : IDataRepository<T> where T : class, IEntity
     {
@@ -18,6 +18,12 @@
         public async Task<IEnumerable<T>> GetAllDataAsync()
         {
             return await _context.Data.ToListAsync();
+        }
+
+        public async Task UpdateDataAsync(IEnumerable<T> data)
+        {
+            _context.UpdateRange(data);
+            await _context.SaveChangesAsync();
         }
     }
 }

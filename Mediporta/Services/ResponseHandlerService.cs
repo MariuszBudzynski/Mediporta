@@ -1,4 +1,6 @@
-﻿namespace Mediporta.Services
+﻿using Mediporta.Data.AutoDataLoader;
+
+namespace Mediporta.Services
 {
     public class ResponseHandlerService
     {
@@ -7,15 +9,17 @@
         private readonly SortingService<ITagDTO> _sortingService;
         private readonly PaginationService<ITagDTO> _paginationService;
         private readonly StatisticsCalculator<Tag> _statisticsCalculator;
+        private readonly AutoDataLoader<Tag> _autoDataLoader;
 
         public ResponseHandlerService(IGetAllDataUseCase<Tag> getAllDataUseCase, SortingService<ITagDTO> sortingService,
-            PaginationService<ITagDTO> paginationService,StatisticsCalculator<Tag> statisticsCalculator)
+            PaginationService<ITagDTO> paginationService,StatisticsCalculator<Tag> statisticsCalculator, AutoDataLoader<Tag> autoDataLoader)
         {
  
             _getAllDataUseCase = getAllDataUseCase;
             _sortingService = sortingService;
             _paginationService = paginationService;
             _statisticsCalculator = statisticsCalculator;
+            _autoDataLoader = autoDataLoader;
         }
 
         public async Task<IResult> ReturnResponse(int page,int pageSize,string sortBy,string sortOrder)
@@ -30,6 +34,14 @@
 
             return Results.Ok(tagDTOs);
         }
+
+        public async Task<IResult> ReturnResponse()
+        {
+            await _autoDataLoader.ReloadData();
+            return Results.Ok();
+        }
+
+
 
         private static ITagDTO TagToDTO(Tag tag, IDictionary<string, double> tagPercentages)
         {

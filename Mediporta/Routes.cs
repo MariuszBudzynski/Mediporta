@@ -1,4 +1,6 @@
-﻿namespace Mediporta
+﻿using Mediporta.Data.AutoDataLoader;
+
+namespace Mediporta
 {
     public class Routes
     {
@@ -10,6 +12,12 @@
                 return await responseHandlerService.ReturnResponse(page, pageSize, sortBy, sortOrder);
             }
             );
+
+
+            app.MapPost("/tags/force-reload", async (ResponseHandlerService responseHandlerService) =>
+            {
+                return await responseHandlerService.ReturnResponse();
+            });
         }
     }
 }

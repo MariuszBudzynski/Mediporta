@@ -9,11 +9,11 @@
             _repository = repository;
         }
 
-        public async Task ExecuteAsync(IEnumerable<T> tags)
+        public async Task ExecuteAsync(IEnumerable<T> data)
         {
             var existingTagNames = (await _repository.GetAllDataAsync()).Select(tag => tag.Name).ToList();
 
-            var newTags = tags.Where(tag => !existingTagNames.Contains(tag.Name)).ToList();
+            var newTags = data.Where(tag => !existingTagNames.Contains(tag.Name)).ToList();
 
             await _repository.SaveDataAsync(newTags);
         }

@@ -3,11 +3,14 @@
     public class AutoDataLoader<T> where T : IEntity
     {
         private readonly IFirstLoadDataSaveUseCase<T> _saveDataAfterLoad;
+        private readonly IForceLoadDataUseCase<T> _forceLoadDataUseCase;
         private readonly HttpClient _client = new HttpClient();
+        private string loadType = "first"; 
 
-        public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad)
+        public AutoDataLoader(IFirstLoadDataSaveUseCase<T> saveDataAfterLoad,IForceLoadDataUseCase<T> forceLoadDataUseCase)
         {
             _saveDataAfterLoad = saveDataAfterLoad;
+            _forceLoadDataUseCase = forceLoadDataUseCase;
         }
 
         public async Task LoadDataJSON()
@@ -46,8 +49,16 @@
                     return;
 
                 IEnumerable<T> data = itemsArray.ToObject<IEnumerable<T>>();
-                await _saveDataAfterLoad.ExecuteAsync(data);
+
+                await (loadType == "first" ? _saveDataAfterLoad.ExecuteAsync(data) : _forceLoadDataUseCase.ExecuteAsync(data));
+
             }
+        }
+
+        public async Task ReloadData()
+        {
+            loadType = "reload";
+            await LoadDataJSON();
         }
     }
 }
