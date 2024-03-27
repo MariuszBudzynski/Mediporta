@@ -13,13 +13,6 @@ if (!Directory.Exists(logsDirectory))
 ServicesRegistration.RegisterServices(builder.Services, builder.Configuration);
 var app = builder.Build();
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .Enrich.FromLogContext()
-    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
