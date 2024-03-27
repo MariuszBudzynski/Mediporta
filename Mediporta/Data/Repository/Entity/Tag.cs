@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Mediporta.Data.Repository.Entity
+﻿namespace Mediporta.Data.Repository.Entity
 {
     public class Tag : IEntity
     {

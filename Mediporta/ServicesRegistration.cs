@@ -24,6 +24,10 @@
             services.AddScoped<IFirstLoadDataSaveUseCase<Tag>,FirstLoadDataSaveUseCase<Tag>>();
             services.AddScoped<IGetAllDataUseCase<Tag>, GetAllDataUseCase<Tag>>();
             services.AddScoped<IStatisticsCalculator, StatisticsCalculator<Tag>>();
+            services.AddScoped<ResponseHandlerService>();
+            services.AddScoped<PaginationService<Tag>>();
+            services.AddScoped<SortingService<Tag>>();
+
 
         }
     }

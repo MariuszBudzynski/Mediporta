@@ -4,12 +4,15 @@
     {
         public static void ConfigureRoutes(WebApplication app)
         {
-            //app.MapGet("/items", async (IGetAllDataUseCase<Item> getAllDataUseCase, Response responseHandler) =>
-            //{
-            //    return await responseHandler.ReturnResultAsync(getAllDataUseCase);
-            //});
-
-            
+            app.MapGet("/tags", async (
+                ResponseHandlerService responseHandlerService,
+                [FromQuery] int page = 1,
+                [FromQuery] int pageSize = 10,
+                [FromQuery] string sortBy = "name",
+                [FromQuery] string sortOrder = "asc") =>
+            {
+                return await responseHandlerService.ReturnResponse(page, pageSize, sortBy, sortOrder);
+            });
         }
     }
 }
