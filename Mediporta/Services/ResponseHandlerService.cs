@@ -4,30 +4,39 @@
     {
        
         private readonly IGetAllDataUseCase<Tag> _getAllDataUseCase;
-        private readonly SortingService<Tag> _sortingService;
-        private readonly PaginationService<Tag> _paginationService;
+        private readonly SortingService<ITagDTO> _sortingService;
+        private readonly PaginationService<ITagDTO> _paginationService;
+        private readonly StatisticsCalculator<Tag> _statisticsCalculator;
 
-        public ResponseHandlerService(IGetAllDataUseCase<Tag> getAllDataUseCase, SortingService<Tag> sortingService,
-            PaginationService<Tag> paginationService)
+        public ResponseHandlerService(IGetAllDataUseCase<Tag> getAllDataUseCase, SortingService<ITagDTO> sortingService,
+            PaginationService<ITagDTO> paginationService,StatisticsCalculator<Tag> statisticsCalculator)
         {
  
             _getAllDataUseCase = getAllDataUseCase;
             _sortingService = sortingService;
             _paginationService = paginationService;
+            _statisticsCalculator = statisticsCalculator;
         }
 
         public async Task<IResult> ReturnResponse(int page,int pageSize,string sortBy,string sortOrder)
         {
 
             var tags = await _getAllDataUseCase.ExecuteAsync();
+            var tagPercentages = await _statisticsCalculator.CalculatePercentagesAsync();
+            var tagDTOs = tags.Select(tag => tag.Mapp(t => TagToDTO(t, tagPercentages)));
 
-            tags = _sortingService.SortTags(tags, sortBy, sortOrder);
-            tags = _paginationService.PaginateTags(tags, page, pageSize);
+            tagDTOs = _sortingService.SortTags(tagDTOs, sortBy, sortOrder);
+            tagDTOs = _paginationService.PaginateTags(tagDTOs, page, pageSize);
 
-
-            return Results.Ok(tags);
-
+            return Results.Ok(tagDTOs);
         }
+
+        private static ITagDTO TagToDTO(Tag tag, IDictionary<string, double> tagPercentages)
+        {
+            double percentage = Math.Round(tagPercentages[tag.Name],4);
+            return new TagDTO(tag.HasSynonyms, tag.IsModeratorOnly, tag.IsRequired, percentage, tag.Name);
+        }
+
 
     }
 }

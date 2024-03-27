@@ -14,5 +14,7 @@ global using Newtonsoft.Json.Linq;
 global using System.IO.Compression;
 global using Mediporta.Operations.Interfaces;
 global using Mediporta.Operations;
-global using Microsoft.AspNetCore.Mvc;
 global using Mediporta.Services;
+global using Mediporta.DTOS.Interfaces;
+global using Mediporta.DTOS;
+global using Mediporta.Extensions;

@@ -1,6 +1,6 @@
 ﻿namespace Mediporta.Services
 {
-    public class PaginationService<T> where T : class, IEntity
+    public class PaginationService<T> where T : ITagDTO
     {
         public IEnumerable<T> PaginateTags(IEnumerable<T> data, int page, int pageSize)
         {
