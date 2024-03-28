@@ -12,6 +12,8 @@
         _configuration = configuration;
     }
 
+    public AutoDataLoader() {}
+
     public async Task LoadDataJSON(bool useSaveDataAfterLoad = true)
     {
         int pageSize = 100;

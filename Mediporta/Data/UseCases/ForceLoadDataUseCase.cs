@@ -22,11 +22,11 @@
                 {
                     if (dataToCheck.FirstOrDefault(x => x.Name == tag.Name) != null)
                     {
-                        tagsToAdd.Add(tag);
+                        tagsToUpdate.Add(tag);
                     }
                     else
                     {
-                        tagsToUpdate.Add(tag);
+                        tagsToAdd.Add(tag);
                     }
                 }
 
@@ -46,5 +46,6 @@
                 throw;
             }
         }
+
     }
 }

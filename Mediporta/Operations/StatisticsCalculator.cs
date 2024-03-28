@@ -9,6 +9,8 @@
             _getAllDataUseCase = getAllDataUseCase;
         }
 
+        public StatisticsCalculator(){}
+
         public async Task<IDictionary<string, double>> CalculatePercentagesAsync()
         {
             var tags = await _getAllDataUseCase.ExecuteAsync();

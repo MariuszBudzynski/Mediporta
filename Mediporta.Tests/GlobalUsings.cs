@@ -2,3 +2,14 @@
 global using Mediporta.Common.Data.Repository.Entity.Interfaces;
 global using Mediporta.Common.Data.Context;
 global using Mediporta.Common.Data.Repository;
+global using Mediporta.Common.Data.Repository.Interfaces;
+global using Mediporta.Common.Data.UseCases;
+global using Moq;
+global using Mediporta.Data.UseCases;
+global using Mediporta.Common.Data.UseCases.Interfaces;
+global using Mediporta.Data.Repository.Entity;
+global using Mediporta.DTOS.Interfaces;
+global using Mediporta.DTOS;
+global using Mediporta.Operations;
+global using Mediporta.Services;
+global using Microsoft.AspNetCore.Mvc;
