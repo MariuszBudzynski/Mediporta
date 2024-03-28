@@ -1,9 +1,9 @@
-﻿namespace Mediporta.Tests
+﻿namespace Mediporta.Tests.UnitTests
 {
     public class ResponseHandlerServiceTests
     {
-          [Fact]
-        public async Task ReturnResponse_Should_Throw_Exception_When_Error_Occurs()
+        [Fact]
+        public async Task ReturnResponseShouldThrowExceptionWhenErrorOccurs()
         {
             // Arrange
             var mockGetAllDataUseCase = new Mock<IGetAllDataUseCase<Tag>>();

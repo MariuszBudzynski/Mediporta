@@ -1,9 +1,9 @@
-﻿namespace Mediporta.Tests.Common.Data.UseCases
+﻿namespace Mediporta.Tests.UnitTests
 {
     public class UseCaseTests
     {
         [Fact]
-        public async Task ExecuteAsync_Should_Return_All_Data()
+        public async Task ExecuteAsyncShouldReturnAllData()
         {
             // Arrange
             var testData = new List<TestEntity>
@@ -28,7 +28,7 @@
 
 
         [Fact]
-        public async Task ExecuteAsync_Should_Save_New_Tags()
+        public async Task ExecuteAsyncShouldSaveNewTags()
         {
             // Arrange
             var testData = new List<TestEntity>
@@ -58,7 +58,7 @@
         }
 
         [Fact]
-        public async Task ExecuteAsync_Should_Save_New_Tags_After_Starting_UP()
+        public async Task ExecuteAsyncShouldSaveNewTagsAfterStartingUP()
         {
             // Arrange
             var testData = new List<TestEntity>

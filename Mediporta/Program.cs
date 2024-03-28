@@ -31,3 +31,5 @@ Routes.ConfigureRoutes(app);
 //await loadData.LoadDataJSON();
 
 app.Run();
+
+public partial class Program { }

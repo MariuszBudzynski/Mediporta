@@ -1,9 +1,9 @@
-﻿namespace Mediporta.Tests
+﻿namespace Mediporta.Tests.UnitTests
 {
     public class DataRepositoryTests
     {
         [Fact]
-        public async Task SaveDataAsync_Should_Save_Data_In_Database()
+        public async Task SaveDataAsyncShouldSaveDataInDatabase()
         {
             // Arrange
             var databaseName = Guid.NewGuid().ToString();
@@ -22,7 +22,7 @@
         }
 
         [Fact]
-        public async Task GetAllDataAsync_Should_Return_All_Data_From_Database()
+        public async Task GetAllDataAsyncShouldReturnAllDataFromDatabase()
         {
             // Arrange
             var databaseName = Guid.NewGuid().ToString();
@@ -47,7 +47,7 @@
         }
 
         [Fact]
-        public async Task UpdateDataAsync_Should_Update_Data_In_Database()
+        public async Task UpdateDataAsyncShouldUpdateDataInDatabase()
         {
             // Arrange
             var databaseName = Guid.NewGuid().ToString();
