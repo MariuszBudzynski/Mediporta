@@ -1,5 +1,6 @@
-﻿namespace Mediporta.Data.Context
-{    public class TagDbContext<T> : DbContext where T : class, IEntity
+﻿namespace Mediporta.Common.Data.Context
+{
+    public class TagDbContext<T> : DbContext where T : class, IEntity
     {
         public TagDbContext(DbContextOptions<TagDbContext<T>> options) : base(options) { }
         public DbSet<T> Data { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Mediporta.Data.UseCases
+﻿namespace Mediporta.Common.Data.UseCases
 {
     public class GetAllDataUseCase<T> : IGetAllDataUseCase<T> where T : class, IEntity
     {

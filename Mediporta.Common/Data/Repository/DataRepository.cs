@@ -1,4 +1,4 @@
-﻿namespace Mediporta.Data.Repository
+﻿namespace Mediporta.Common.Data.Repository
 {
     public class DataRepository<T> : IDataRepository<T> where T : class, IEntity
     {

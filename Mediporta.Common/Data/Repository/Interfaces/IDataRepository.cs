@@ -1,4 +1,4 @@
-﻿namespace Mediporta.Data.Repository.Interfaces
+﻿namespace Mediporta.Common.Data.Repository.Interfaces
 {
     public interface IDataRepository<T> where T : class, IEntity
     {

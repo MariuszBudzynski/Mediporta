@@ -1,4 +1,4 @@
-﻿namespace Mediporta.Data.Repository.Entity.Interfaces
+﻿namespace Mediporta.Common.Data.Repository.Entity.Interfaces
 {
     public interface IEntity
     {

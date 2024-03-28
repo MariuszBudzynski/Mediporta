@@ -1,6 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
-
-namespace Mediporta
+﻿namespace Mediporta
 {
     public static class ServicesRegistration
     {
@@ -23,7 +21,8 @@ namespace Mediporta
 
             services.AddDbContext<TagDbContext<Tag>>(options =>
             {
-                options.UseSqlite(configuration.GetConnectionString("TagDbContextConnection"));
+                options.UseSqlite(configuration.GetConnectionString("TagDbContextConnection"),
+                x => x.MigrationsAssembly("Mediporta"));
             });
 
             services.AddSwaggerGen(c =>
