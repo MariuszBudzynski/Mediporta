@@ -27,8 +27,8 @@ app.UseSerilogRequestLogging();
 
 Routes.ConfigureRoutes(app);
 
-//var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
-//await loadData.LoadDataJSON();
+var loadData = app.Services.CreateScope().ServiceProvider.GetRequiredService<AutoDataLoader<Tag>>();
+await loadData.LoadDataJSON();
 
 app.Run();
 
