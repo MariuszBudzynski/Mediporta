@@ -1,9 +1,0 @@
-version: '3'
-services:
-  web:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "7206:7206"
-      - "5038:5038"
