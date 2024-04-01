@@ -13,7 +13,7 @@
             };
 
             var repositoryMock = new Mock<IDataRepository<TestEntity>>();
-            repositoryMock.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(testData);
+            repositoryMock.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(testData.AsQueryable());
 
             var useCase = new GetAllDataUseCase<TestEntity>(repositoryMock.Object);
 
@@ -43,7 +43,7 @@
             };
 
             var mockRepository = new Mock<IDataRepository<TestEntity>>();
-            mockRepository.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(existingTags);
+            mockRepository.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(existingTags.AsQueryable());
             mockRepository.Setup(repo => repo.SaveDataAsync(It.IsAny<IEnumerable<TestEntity>>()))
                 .Returns(Task.CompletedTask)
                 .Verifiable();
@@ -73,7 +73,7 @@
             };
 
             var mockRepository = new Mock<IDataRepository<TestEntity>>();
-            mockRepository.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(existingTags);
+            mockRepository.Setup(repo => repo.GetAllDataAsync()).ReturnsAsync(existingTags.AsQueryable());
             mockRepository.Setup(repo => repo.SaveDataAsync(It.IsAny<IEnumerable<TestEntity>>()))
                 .Returns(Task.CompletedTask)
                 .Verifiable();

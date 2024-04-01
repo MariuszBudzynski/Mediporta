@@ -15,11 +15,6 @@
             await _context.SaveChangesAsync();
         }
 
-        //public async Task<IEnumerable<T>> GetAllDataAsync()
-        //{
-        //    return await _context.Data.ToListAsync();
-        //}
-
         public async Task<IQueryable<T>> GetAllDataAsync()
         {
             return await Task.FromResult(_context.Data.AsQueryable());
