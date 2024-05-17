@@ -6,7 +6,7 @@ The application was prepared for presentation purposes. Since I spent a lot of t
 * SQLite
 * EF Core
 * Clean Architecture
-* DI Injection
+* Dependency Injection
 * Minimal API (REST)
 * UNit Tests
 * Integration Tests
